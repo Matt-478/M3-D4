@@ -17,14 +17,37 @@
 
   <script>
 
-    const fetchBooks = () => {
-      fetch("https://striveschool-api.herokuapp.com/books")
-      .then(response => console.log(response.json()))
-      .catch(err => console.log(err))
-    }
-
+    // const fetchBooks = () => {
+    //   fetch("https://striveschool-api.herokuapp.com/books")
+    //   .then(response => console.log(response.json()))
+    //   .then(data => console.log(data))
+    //   .catch(err => console.log(err))
+    // }
     window.onload = () => {
-      fetchBooks();
+      fetch("https://striveschool-api.herokuapp.com/books")
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+        // DOM stuff
+        let row = document.querySelector(".row")
+
+        data.forEach(elem => {
+          let col = document.createElement("div")
+          col.classList = ("col-md-4")
+          col.innerHTML = 
+          `<div class="card" style="width: 18rem;">
+             <img src="${elem.img}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">${elem.title}</h5>
+                <p class="card-text"></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          <div>`
+          row.appendChild(col)
+        })
+      })
+      .catch(err => console.log('error:', err))
     }
   </script>
 </body>
